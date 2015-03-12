@@ -12,7 +12,7 @@ namespace RepositoryWithCaching.Controllers
     public class CommentsController : Controller
     {
         private MyDataRepository dr = new MyDataRepository();
-        //private MyDataEntities db = new MyDataEntities();
+        
         //
         // GET: /Comments/
 
