@@ -6,4 +6,4 @@ In this repository we hold the C# code to create a Data Repository with Data Cac
 This Data Repository implements the Repository Pattern , and cache in memory and persist in the database the application data. The Repository will fetch the data from database ONLY IF IT'S NOT AVAILABLE IN MEMORY. 
 
  (c) 2015 by Carmel Schvartzman - כרמל שוורצמן 
-    <div>http://themvcclub.blogspot.co.il</div>
+   [http://themvcclub.blogspot.co.il/](http://themvcclub.blogspot.co.il/)
