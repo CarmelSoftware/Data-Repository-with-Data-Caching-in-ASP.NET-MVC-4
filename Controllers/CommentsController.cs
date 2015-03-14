@@ -18,7 +18,12 @@ namespace RepositoryWithCaching.Controllers
 
         public ActionResult Index()
         {
-            var comments = dr.RetrieveComments().Include("Blog").OrderBy(c => c.CommentID )  .Skip(2).Take (15);//c => c.Blog
+            var comments = dr.RetrieveComments()
+            .Include("Blog")
+            .OrderBy(c => c.CommentID )  
+            .Skip(0)
+            .Take (10);//c => c.Blog
+            
             return View(comments.ToList());
         }
 
@@ -54,7 +59,8 @@ namespace RepositoryWithCaching.Controllers
             if (ModelState.IsValid)
             {
                 dr.AddComment (comment);
-                dr.Save();
+                dr.Save();  // Save() is called at the end following
+                //             all data manipulations
                 return RedirectToAction("Index");
             }
 
