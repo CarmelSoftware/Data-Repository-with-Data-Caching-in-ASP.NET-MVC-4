@@ -9,6 +9,7 @@ namespace RepositoryWithCaching.Models
 {
     public class RepositoryCaching
     {
+        // TODO: check what happens when different users use Cache simultaneously
         public ObjectCache Cache
         {
             get { return MemoryCache.Default; }
