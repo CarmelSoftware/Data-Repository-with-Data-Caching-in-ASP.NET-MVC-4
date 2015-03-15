@@ -1,0 +1,40 @@
+@model RepositoryWithCaching.Models.Comment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Comment</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Title )
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title, new { @class="form-control" })
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Text)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Text, new { @class="form-control" })
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Blog.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Blog.Title, new { @class="form-control" })
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" class="btn btn-success" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index" , null , new { @class="btn btn-success" })
+    </p>
+}
