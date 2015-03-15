@@ -1,0 +1,52 @@
+@model RepositoryWithCaching.Models.Comment
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Comment</legend>
+
+        <div class="control-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="control-field">
+            @Html.TextBoxFor(model => model.Title, new { @class="form-control" })
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="control-label">
+            @Html.LabelFor(model => model.Text)
+        </div>
+        <div class="control-field">
+            @Html.TextBoxFor(model => model.Text, new { @class="form-control" })
+            @Html.ValidationMessageFor(model => model.Text)
+        </div>
+
+        <div class="control-label">
+            @Html.LabelFor(model => model.BlogID, "Blog")
+        </div>
+        <div class="control-field">
+            @Html.DropDownList("BlogID", null,new { @class="form-control" })
+            @Html.ValidationMessageFor(model => model.BlogID)
+        </div>
+
+        <p>
+            <input type="submit" class="btn btn-success" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
