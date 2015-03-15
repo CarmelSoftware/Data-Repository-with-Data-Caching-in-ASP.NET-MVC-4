@@ -1,14 +1,8 @@
-//  TODO: create Caching Class to store data in MemoryCache :
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Runtime.Caching;
+using system;
 
-namespace RepositoryWithCaching.Models
+public class MyDataRepository
 {
-    public class RepositoryCaching
-    {
+
         // TODO: check what happens when different users use Cache simultaneously
         public ObjectCache Cache
         {
