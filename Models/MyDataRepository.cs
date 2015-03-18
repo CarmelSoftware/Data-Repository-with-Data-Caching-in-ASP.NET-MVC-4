@@ -1,9 +1,14 @@
-using system;
+// TODO: fix this class : class name : "RepositoryCaching" 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Runtime.Caching;
 
-public class MyDataRepository
+namespace RepositoryWithCaching.Models
 {
-
-        // TODO: check what happens when different users use Cache simultaneously
+    public class RepositoryCaching
+    {
         public ObjectCache Cache
         {
             get { return MemoryCache.Default; }
