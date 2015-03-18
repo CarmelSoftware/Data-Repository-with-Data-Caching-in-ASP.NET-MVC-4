@@ -1,101 +1,39 @@
-//  TODO: file name should be "MyDataRepository.cs"
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using RepositoryWithCaching.Models;
+using System.Runtime.Caching;
 
 namespace RepositoryWithCaching.Models
 {
-    public class MyDataRepository
+    public class RepositoryCaching
     {
-        #region Context
-        private MyDataEntities _Ctx;
-        public MyDataEntities Ctx
+        public ObjectCache Cache
         {
-            get
-            {
-                if (_Ctx == null)
-                {
-                    _Ctx = new MyDataEntities();
-                }
-                return _Ctx;
-            }
-
-        }
-        private RepositoryCaching _Cache;
-
-        public RepositoryCaching Cache
-        {
-            get
-            {
-                if (_Cache == null)
-                {
-                    _Cache = new RepositoryCaching();
-                }
-                return _Cache;
-            }
-
+            get { return MemoryCache.Default; }
         }
 
-        #endregion
-
-        public IQueryable<Comment> RetrieveComments()
+        public bool IsInMemory(string Key)
         {
-            if (Cache.IsInMemory("Comments"))
-            {
-                return Cache.FetchData<Comment>("Comments");
-            }
-            else
-            {
-                IQueryable<Comment> data = Ctx.Comments;
-                Cache.Add("Comments", data, 60);
-                return data;
-            }
+            return Cache.Contains(Key);
         }
 
-        public Comment RetrieveComment(int Id)
+        public void Add(string Key, object Value, int Expiration)
         {
-            return RetrieveComments().SingleOrDefault(c => c.CommentID == Id);
+            Cache.Add(Key, Value, new CacheItemPolicy().AbsoluteExpiration = DateTime.Now + TimeSpan.FromMinutes(Expiration));
         }
 
-        public void AddComment(Comment comment)
+        public IQueryable<T> FetchData<T>(string Key) where T : class
         {
-            Ctx.Comments.Add(comment);
-            Cache.Remove("Comments");
+            return Cache[Key] as IQueryable<T>;
         }
 
-        public void UpdateComment(Comment comment)
+        public void Remove(string Key)
         {
-            Ctx.Comments.Attach(comment);
-            Ctx.Entry(comment).State = System.Data.EntityState.Modified;
-            Cache.Remove("Comments");
+            Cache.Remove(Key);
         }
 
-        public void DeleteComment(Comment comment)
-        {
-            Ctx.Comments.Remove(comment);
-            Cache.Remove("Comments");
-        }
-
-        public void Save()
-        {
-            Ctx.SaveChanges();
-        }
-
-        public IQueryable<Blog> RetrieveBlogs()
-        {
-            if (Cache.IsInMemory("Blogs"))
-            {
-                return Cache.FetchData<Blog>("Blogs") as IQueryable<Blog>;
-            }
-            else
-            {
-                IQueryable<Blog> data = Ctx.Blogs;
-                Cache.Add("Blogs",data,60);
-                return data;
-            }
-
-        }
     }
 }
+
+
